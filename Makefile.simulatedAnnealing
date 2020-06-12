@@ -1,0 +1,9 @@
+CC=gcc 
+CFLAGS=-g
+CLIBS=-lm
+
+all: samplingAnnealing.o mt19937ar.o
+	$(CC) $(CFLAGS) samplingAnnealing.o mt19937ar.o $(CLIBS) -o simulatedAnnealing 
+	
+clean:
+	rm -f simulatedAnnealing *.o 
