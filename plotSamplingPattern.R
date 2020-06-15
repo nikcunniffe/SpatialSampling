@@ -5,8 +5,9 @@ library(ggthemes) # for theme_map()
 
 ##### Specifying directories -----
 # location of the directory containing runDir and saDir folders in relation to current working directory
-# line 9 needs to be altered before running the script
-baseDir <- "" 
+# line 10 needs to be altered before running the script if not running from project file
+baseDir <- getwd() # gets current working directory if running within RStudio project
+#baseDir <- ""  # specify working directory if not running within RStudio project
 
 runDir  <- "epidemicRuns" # name of the folder containing the epidemic simulations
 saDir   <- "samplingPattern" # name of the folder containing the optimisation results
@@ -31,7 +32,7 @@ colnames(basemapDat) <- basemapDatNames # reattaches names
 basemapCells <- read.table(baseMap, header=F, skip=6) # extracts grid of basemap
 basemapCells[basemapCells==basemapDat$NODATA_value]<-NA # converts NODATA values to NA
 
-#rm(list=c("basemapDat","basemapDatNames"))
+rm(basemapDatNames)
 
 ##### Creating a georeferenced dataframe -----
 
@@ -122,7 +123,7 @@ ggsave("output/propFull.tiff") # plot of citrus density
 
 ggplot(data=allHostLocsDF, aes(x=easting, y=northing, fill=infProb)) +
   geom_tile() +
-  scale_fill_viridis(name="Probability of infection", direction=1, discrete=FALSE, option="E", begin=0.5, end=1.0) +
+  scale_fill_viridis(name="Probability\nof infection", direction=1, discrete=FALSE, option="E", begin=0.5, end=1.0) +
   geom_point(data=filter(allHostLocsDF,selected==1)) + # comment out if optimised locations not wanted
   coord_equal() +
   theme_map() +
@@ -133,7 +134,7 @@ ggsave("output/infProb.tiff") # plot of infection probability
 
 ggplot(data=allHostLocsDF, aes(x=easting, y=northing, fill=meanRisk)) +
   geom_tile() +
-  scale_fill_viridis(name="Mean end prevalence", direction=1, discrete=FALSE, option="E", begin=0.5, end=1.0) +
+  scale_fill_viridis(name="Mean end\nprevalence", direction=1, discrete=FALSE, option="E", begin=0.5, end=1.0) +
   geom_point(data=filter(allHostLocsDF,selected==1)) + # comment out if optimised locations not wanted
   coord_equal() +
   theme_map() +

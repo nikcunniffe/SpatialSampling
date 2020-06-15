@@ -3,7 +3,7 @@ CFLAGS=-g
 CLIBS=-lm
 
 all: landscapeScaleModel.o mt19937ar.o
-	$(CC) $(CFLAGS) landscapeScaleModel.o mt19937ar.o $(CLIBS) -o landscapeScaleSimulation 
+	$(CC) $(CFLAGS) landscapeScaleSimulation.o mt19937ar.o $(CLIBS) -o landscapeScaleSimulation 
 	
 clean:
 	rm -f landscapeScaleSimulation *.o 
